@@ -1,8 +1,10 @@
 package com.example.third_task
 
+import com.example.third_task.db.Person
+import com.example.third_task.db.PersonRepository
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.stereotype.Component
 import org.springframework.stereotype.Service
+import javax.annotation.PostConstruct
 
 
 interface PersonService{
@@ -13,18 +15,13 @@ interface PersonService{
 
 
 @Service
-@Component
 class PersonServiceImp: PersonService {
 
     @Autowired
     lateinit var personRepository: PersonRepository
 
-    override fun create(savePersonRequest: Person) {
-        personRepository.save(
-            Person(
-                name = savePersonRequest.name,
-                lastname = savePersonRequest.lastname
-            ))
+    override fun create(person: Person) {
+        personRepository.save(person)
     }
 
     override fun update(id:Int, savePersonRequest: Person) {
@@ -45,4 +42,8 @@ class PersonServiceImp: PersonService {
 
     }
 
+    @PostConstruct()
+    fun isRepoInit(){
+        println("repo initialized")
+    }
 }

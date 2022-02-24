@@ -1,4 +1,4 @@
-package com.example.third_task
+package com.example.third_task.db
 
 import javax.persistence.*
 

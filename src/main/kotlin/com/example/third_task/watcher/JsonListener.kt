@@ -1,6 +1,10 @@
-package com.example.third_task
+package com.example.third_task.watcher
 
+import com.example.third_task.PersonService
+import com.example.third_task.PersonServiceImp
+import com.example.third_task.db.Person
 import com.fasterxml.jackson.databind.ObjectMapper
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.devtools.filewatch.ChangedFile
 import org.springframework.boot.devtools.filewatch.ChangedFiles
 import org.springframework.boot.devtools.filewatch.FileChangeListener
@@ -9,9 +13,14 @@ import java.util.*
 
 
 @Component
-class JsonListener(var personService: PersonService)  : FileChangeListener {
+class JsonListener  : FileChangeListener {
+
+    @Autowired
+    lateinit var personService: PersonServiceImp
+
 
     private val mapper = ObjectMapper()
+
 
     override fun onChange(changeSet: MutableSet<ChangedFiles>?) {
 
